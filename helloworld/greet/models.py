@@ -16,10 +16,11 @@ class Greeting(models.Model):
 
     @classmethod
     def for_time_of_day(cls, time_of_day: time) -> "Greeting" | None:
-        greetings: list["Greeting"] = list(
-            cls.objects.filter(start_time__lte=time_of_day, end_time__gte=time_of_day)
-        )
-        if greetings:
+        if greetings := list(
+            cls.objects.filter(
+                start_time__lte=time_of_day, end_time__gte=time_of_day
+            )
+        ):
             return greetings[0]
         return None
 
